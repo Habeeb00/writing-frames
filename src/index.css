@@ -1,0 +1,299 @@
+/* Import Inter font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Cursor-inspired Design System ===== */
+:root {
+  /* Cursor-inspired color palette */
+  --cursor-blue: #0078D4;
+  --cursor-blue-hover: #106EBE;
+  --cursor-red: #D13438;
+  --cursor-green: #107C10;
+  --cursor-purple: #5C2D91;
+  
+  /* Light mode */
+  --background-primary: #FFFFFF;
+  --background-secondary: #F5F5F5;
+  --background-tertiary: #FAFAFA;
+  --text-primary: #252525;
+  --text-secondary: #505050;
+  --text-tertiary: #6E6E6E;
+  --border-light: #E1E1E1;
+  
+  /* Animation constants */
+  --transition-duration: 600ms;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-timing-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Dark mode color palette - inspired by Cursor website */
+.dark {
+  --background-primary: #1A1A1A; /* Not pure black, more like Cursor's dark gray */
+  --background-secondary: #252525;
+  --background-tertiary: #2A2A2A;
+  --text-primary: #E5E5E5; /* Not pure white */
+  --text-secondary: #AAAAAA;
+  --text-tertiary: #808080;
+  --border-light: #333333;
+}
+
+/* ===== Typography ===== */
+@layer base {
+  html {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.011em;
+    @apply text-[var(--text-primary)] bg-[var(--background-primary)];
+  }
+  
+  body {
+    line-height: 1.5;
+    transition: background-color calc(var(--transition-duration) * 1.2) var(--transition-timing),
+                color var(--transition-duration) var(--transition-timing);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.018em;
+    line-height: 1.2;
+    @apply text-[var(--text-primary)];
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    @apply mb-6;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    @apply mb-5;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    @apply mb-4;
+  }
+  
+  p {
+    @apply mb-4 text-[var(--text-secondary)];
+  }
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-8px); }
+  to { transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.97); }
+  to { transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Apply animations to elements when theme changes */
+.theme-transition-trigger h1,
+.theme-transition-trigger h2,
+.theme-transition-trigger h3 {
+  animation: fadeIn 0.8s var(--transition-timing), 
+             slideDown 0.8s var(--transition-timing);
+}
+
+.theme-transition-trigger p,
+.theme-transition-trigger span {
+  animation: fadeIn 0.7s var(--transition-timing) 0.05s both;
+}
+
+.theme-transition-trigger button,
+.theme-transition-trigger input,
+.theme-transition-trigger a {
+  animation: scaleIn 0.6s var(--transition-timing) 0.1s both;
+}
+
+/* Apple-inspired animations for components */
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards;
+}
+
+.animate-fade-out {
+  animation: fadeOut 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards;
+}
+
+/* Additional utility classes for improved UI */
+.backdrop-blur-lg {
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+.apple-card {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .apple-card {
+  background: rgba(30, 30, 30, 0.8);
+  border: 1px solid rgba(60, 60, 60, 0.3);
+}
+
+/* ===== Components ===== */
+@layer components {
+  /* Cursor-style buttons */
+  .btn-primary {
+    @apply px-5 py-2 text-base font-medium rounded-md bg-[var(--cursor-blue)] text-white 
+           transition-all duration-300 hover:bg-[var(--cursor-blue-hover)]
+           focus:outline-none focus:ring-2 focus:ring-[var(--cursor-blue)] focus:ring-opacity-30;
+  }
+  
+  .btn-secondary {
+    @apply px-5 py-2 text-base font-medium rounded-md text-[var(--text-primary)]
+           border border-[var(--border-light)] bg-transparent
+           transition-all duration-300 hover:bg-[var(--background-secondary)]
+           focus:outline-none focus:ring-2 focus:ring-[var(--border-light)];
+  }
+  
+  .btn-danger {
+    @apply px-5 py-2 text-base font-medium rounded-md bg-[var(--cursor-red)] text-white 
+           transition-all duration-300 hover:opacity-90
+           focus:outline-none focus:ring-2 focus:ring-[var(--cursor-red)] focus:ring-opacity-30;
+  }
+  
+  /* Cursor-style cards */
+  .card {
+    @apply p-6 rounded-lg bg-[var(--background-primary)] shadow-sm border border-[var(--border-light)]
+           transition-all duration-300;
+  }
+  
+  .card-hover {
+    @apply hover:shadow-md hover:scale-[1.01] transition-all duration-300;
+  }
+  
+  /* Forms */
+  .input {
+    @apply w-full px-4 py-3 rounded-lg text-[var(--text-primary)] bg-[var(--background-tertiary)]
+           border border-[var(--border-light)] transition-all duration-300
+           focus:outline-none focus:border-[var(--cursor-blue)] focus:ring-2 focus:ring-[var(--cursor-blue)] focus:ring-opacity-10;
+  }
+  
+  .label {
+    @apply block text-sm font-medium mb-2 text-[var(--text-secondary)];
+  }
+  
+  /* Navigation */
+  .nav-link {
+    @apply px-4 py-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all duration-300;
+  }
+  
+  .active-nav-link {
+    @apply text-[var(--text-primary)] font-medium;
+  }
+  
+  /* Page sections */
+  .section {
+    @apply py-12 md:py-16;
+  }
+  
+  .container-narrow {
+    @apply max-w-4xl mx-auto px-4;
+  }
+}
+
+/* ===== Custom Utilities ===== */
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[var(--cursor-blue)] to-[var(--cursor-purple)];
+  }
+  
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.2) 20%,
+      rgba(255, 255, 255, 0.5) 60%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  .dark .shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.06) 20%,
+      rgba(255, 255, 255, 0.12) 60%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .glass-effect {
+    @apply bg-white/80 dark:bg-black/80 backdrop-blur-md;
+  }
+  
+  .apple-shadow {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .dark .apple-shadow {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Base transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-timing);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-[var(--background-secondary)];
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-[var(--text-tertiary)] rounded;
+  transition: background-color var(--transition-duration) var(--transition-timing);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-[var(--text-secondary)];
+}

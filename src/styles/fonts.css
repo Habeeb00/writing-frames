@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'Resist Mono Variable';
+  src: url('/public/fonts/Groteskly-Yours-Resist-Mono-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-resist: 'Resist Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Apply the font to all text elements by default */
+body {
+  font-family: var(--font-resist);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-resist);
+}
+
+/* Inputs and buttons */
+input, button, textarea, select {
+  font-family: var(--font-resist);
+} 
